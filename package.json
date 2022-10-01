@@ -15,7 +15,8 @@
     "migrate:rollback": "node_modules/.bin/knex migrate:rollback",
     "migrate:reset": "yarn run migrate:rollback && yarn run migrate:latest && yarn run seed:run",
     "seed:run": "node_modules/.bin/knex seed:run",
-    "heroku-postbuild": "yarn install && yarn migrate:reset && yarn run build"
+    "heroku-postbuild": "yarn install && yarn migrate:reset && yarn run build",
+    "run:check": "node  ./benchmark"
   },
   "repository": {
     "type": "git",
@@ -36,18 +37,23 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "admin": "^1.4.1",
+    "autocannon": "^7.10.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "debug": "^4.2.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.8",
     "express": "^4.17.1",
+    "html-pdf": "^3.0.1",
     "http-status": "^1.5.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.12",
     "method-override": "^3.0.0",
     "pg": "^8.5.1",
-    "winston": "^3.3.3"
+    "puppeteer": "^18.0.5",
+    "winston": "^3.3.3",
+    "wrk": "^1.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",

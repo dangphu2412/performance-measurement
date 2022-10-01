@@ -9,6 +9,7 @@ import debug from 'debug';
 import http from 'http';
 import app from '..';
 import { PORT } from '../env';
+import { closeBrowser } from '../api/download/download-service.config';
 
 const dubugHelper = debug('adminlte:server');
 
@@ -49,7 +50,7 @@ const server = http.createServer(app);
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+async function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -62,10 +63,12 @@ function onError(error) {
   switch (error.code) {
     case 'EACCES':
       console.error(`${bind} requires elevated privileges`);
+      await closeBrowser();
       process.exit(1);
       break;
     case 'EADDRINUSE':
       console.error(`${bind} is already in use`);
+      await closeBrowser();
       process.exit(1);
       break;
     default:
@@ -83,6 +86,11 @@ function onListening() {
     ? `pipe ${addr}`
     : `port ${addr.port}`;
   dubugHelper(`Listening on ${bind}`);
+}
+
+async function onClose() {
+  console.log('Closing app');
+  await closeBrowser();
 }
 
 /**

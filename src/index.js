@@ -1,11 +1,13 @@
 import 'dotenv/config';
 import express from 'express';
-import { EngineConfig } from './config';
+import { AppRunner } from './config';
 
 const app = express();
 
 (async () => {
-    (new EngineConfig(app)).init();
+    const appRunner = new AppRunner(app);
+
+    await appRunner.run();
 })();
 
 export default app;
